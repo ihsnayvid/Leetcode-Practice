@@ -13,6 +13,20 @@ class Solution {
 public:
     int countNodes(TreeNode* root) {
         if(!root) return 0;
-        return (countNodes(root->left) + countNodes(root->right) + 1);
+        int left=0,right=0;
+        TreeNode *ptr1=root, *ptr2=root;
+        
+        while(ptr1){
+            ptr1=ptr1->left;
+            left++;
+        }
+        
+        while(ptr2){
+            ptr2=ptr2->right;
+            right++;
+        }
+        if(left == right)
+            return pow(2,left) - 1;
+        return countNodes(root->left) + countNodes(root->right) + 1;
     }
 };
