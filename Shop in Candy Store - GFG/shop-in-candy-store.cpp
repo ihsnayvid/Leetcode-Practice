@@ -6,23 +6,18 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> candyStore(int candies[], int n, int k)
+    vector<int> candyStore(int a[], int n, int k)
     {
-        int a[n],d[n];
-        for(int i=0;i<n;i++){
-            a[i] = candies[i];
-            d[i] = candies[i];
-        }
         sort(a, a+n);
-        sort(d,d+n,greater<int>());
-        
-        int i=0,j=n-1;
+        int i=0,j=n-1,x=n-1,y=0;
         int s1=0,s2=0;
         while(i<=j){
             s1+=a[i];
-            s2+=d[i];
+            s2+=a[x];
             j-=k;
             i++;
+            y+=k;
+            x--;
         }
         return {s1,s2};
         
