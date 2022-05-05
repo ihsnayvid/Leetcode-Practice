@@ -13,7 +13,7 @@ public:
         
         for(int i=0; i<S.size()-1; i++){
             string xx = S.substr(0,i+1);
-            string yy = S.substr(i+1,S.size() - i);
+            string yy = S.substr(i+1);
             int x = stoi(xx);
             int y = stoi(yy);
             
