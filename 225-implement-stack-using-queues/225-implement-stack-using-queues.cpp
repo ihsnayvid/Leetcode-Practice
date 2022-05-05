@@ -6,18 +6,12 @@ public:
     }
     
     void push(int x) {
-        if(q1.empty()){
-            q1.push(x);
-            return;
-        }
-        q2.push(x);
-        while(!q1.empty()){
-            q2.push(q1.front());
+        q1.push(x);
+        int s = q1.size();
+        while(--s){
+            q1.push(q1.front());
             q1.pop();
         }
-        queue<int> temp = q1;
-        q1 = q2;
-        q2 = temp;
     }
     
     int pop() {
