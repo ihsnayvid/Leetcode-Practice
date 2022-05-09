@@ -10,8 +10,11 @@ public:
             return;
         }
         
-        for(char x : mp[(digits[i] - '0')])
-            solve(digits, tmp + x, i + 1, n);
+        for(char x : mp[(digits[i] - '0')]){
+            tmp += x;
+            solve(digits, tmp, i + 1, n);
+            tmp.pop_back();
+        }
     }
     vector<string> letterCombinations(string digits) {
         if(digits.size() == 0) return {}; 
