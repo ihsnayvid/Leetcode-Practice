@@ -29,7 +29,7 @@ class Solution
         i = na-1, j = nb - 1;
         int ans = 0;
         
-        while(i >= 0 and j >= 0){
+        while(i >= 0){
             if(a[i] == b[j]){
                 i-- , j-- ;
             }
