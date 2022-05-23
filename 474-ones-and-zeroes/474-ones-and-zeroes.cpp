@@ -9,7 +9,7 @@ public:
             
             for(int i = m; i >= zero; i--){
                 for(int j = n; j >= one; j--)
-                    dp[i][j] = max(dp[i][j], 1 + dp[i - zero][j - one]);
+                    dp[i][j] = max( dp[i][j], 1 + dp[i - zero][j - one] );
             }
         }
         
