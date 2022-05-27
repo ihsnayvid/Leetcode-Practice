@@ -8,7 +8,7 @@ using namespace std;
 class Solution {
   public:
     vector<int> numAndDen(int n, int d) {
-        int num = -1, den = 2;
+        int num = -1, den = 1;
         for (int i = d + 1; i <= 10000; i++){
             int j = (i * n) / d;
             if(__gcd(j,i) == 1){
