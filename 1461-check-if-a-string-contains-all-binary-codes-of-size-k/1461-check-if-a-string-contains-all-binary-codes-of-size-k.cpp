@@ -2,8 +2,9 @@ class Solution {
 public:
     
     bool hasAllCodes(string s, int k) {
-        vector<int> v(pow(2,k),0);
         int n = s.length();
+        if(k > n) return false;
+        vector<int> v((1 << k),0);        
         int dec=0;
         for(int i=0; i<=n-k; i++){
             string sub = s.substr(i,k);
