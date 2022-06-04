@@ -7,7 +7,10 @@ public:
             //same column
             if(board[i][col] == 'Q') return false;
             
+            //up-left cell
             if(row - i >=0 and col - i >= 0 and board[row - i][col - i] == 'Q') return false;
+            
+            //up-right cell
             if(row - i >=0 and col + i >= 0 and board[row - i][col + i] == 'Q') return false;
         }
         
