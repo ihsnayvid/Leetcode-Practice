@@ -26,8 +26,8 @@ class Solution
         long long count = 0;
         for(int i=0; i<n; i++){
             int x = abs(k - a[i]);
-            if(mp[x] > 0) count += mp[x];
-            else if(x == k) count += mp[a[i]];
+            if(a[i] == 0) count += mp[0];
+            else count += mp[x];
             mp[a[i]]++;
         }
         return count;
