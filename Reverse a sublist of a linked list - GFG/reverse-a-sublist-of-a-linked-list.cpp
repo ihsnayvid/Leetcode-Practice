@@ -32,29 +32,30 @@ class Solution
 {
     public:
     
-    // Node* reverse(Node* head, Node* tail){
-    //     Node* curr = head;
-    //     Node *prev = NULL, *next = NULL;
-    // }
+    
     Node* reverseBetween(Node* head, int m, int n)
     {
-        Node* temp = head;
-        vector<int> v;
-        while(temp){
-            v.push_back(temp->data);
-            temp = temp->next;
+        Node* temp = new Node(-1);
+        temp->next = head;
+        Node *prevHead = temp, *first = head;
+        for(int i=1; i<m; i++){
+            prevHead = first;
+            first = first->next;
         }
         
-        for(int i=m-1, j=n-1; i<j; i++,j--){
-            swap(v[i],v[j]);
+        Node *second = first->next;
+        for(int i=m; i<n; i++){
+            Node* t = second->next;
+            second->next = first;
+            first = second;
+            second = t;
         }
-        int i=0;
-        temp = head;
-        while(temp){
-            temp->data = v[i++];
-            temp = temp->next;
-        }
-        return head;
+        
+        prevHead->next->next = second;
+        prevHead->next = first;
+        
+        return temp->next;
+        
     }
 };
 
