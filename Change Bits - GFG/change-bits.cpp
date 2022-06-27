@@ -11,7 +11,7 @@ class Solution {
   public:
     vector<int> changeBits(int n) {
         int d = floor(log2(n) + 1);
-        int num = pow(2,d) - 1;
+        int num = (1<<d) - 1;
         return {num - n, num};
     }
 };
