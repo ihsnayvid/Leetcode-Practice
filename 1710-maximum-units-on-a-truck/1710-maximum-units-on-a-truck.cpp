@@ -7,7 +7,8 @@ public:
         sort(boxTypes.begin(), boxTypes.end(),cmp);
         
         int ans = 0;
-        for(auto v: boxTypes){            
+        for(auto v: boxTypes){ 
+            if(truckSize == 0) break;
             if(truckSize - v[0] >= 0){
                 ans += v[0] * v[1];
                 truckSize -= v[0];
