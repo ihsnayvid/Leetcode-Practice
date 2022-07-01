@@ -6,7 +6,7 @@ public:
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         sort(boxTypes.begin(), boxTypes.end(),cmp);
         
-        int ans = 0, taking = 0;
+        int ans = 0;
         for(auto v: boxTypes){            
             if(truckSize - v[0] >= 0){
                 ans += v[0] * v[1];
