@@ -8,23 +8,20 @@ class Solution
 public:
     vector<int> ans;
     
-    void solve(int ind, vector<int> ds, int sum, vector<int> arr, int n){
+    void solve(int ind, int sum, vector<int> &arr, int n){
         if(ind == n){
             ans.push_back(sum);
             return;
         }
-        
-        ds.push_back(arr[ind]);
-        solve(ind+1, ds, sum + arr[ind], arr, n);
-        ds.pop_back();
-        solve(ind+1, ds, sum, arr, n);
+    
+        solve(ind+1, sum + arr[ind], arr, n);
+        solve(ind+1, sum, arr, n);
         
     }
     
     vector<int> subsetSums(vector<int> arr, int n)
     {
-        vector<int> ds;
-        solve(0,ds,0,arr,n);
+        solve(0,0,arr,n);
         return ans;
     }
 };
