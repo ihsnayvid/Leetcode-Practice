@@ -6,15 +6,12 @@ public:
         int m = mat.size(), n = mat[0].size();
         if(m * n != r * c) return mat;
         
-        vector<int> arr;
-        for(int i=0; i<m; i++)
-            for(int j=0; j<n; j++)
-                arr.push_back(mat[i][j]);
-        
-        int k=0;
-        for(int i=0; i<r; i++){
-            for(int j=0; j<c; j++){
-                ans[i][j] = arr[k++];
+        int x = 0, y = 0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                ans[x][y] = mat[i][j];
+                if(y == c-1) x++, y=0;
+                else y++;
             }
         }
         
