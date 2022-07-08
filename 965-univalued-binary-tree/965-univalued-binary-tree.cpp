@@ -11,13 +11,10 @@
  */
 class Solution {
 public:
-    
-    bool solve(TreeNode* root, int val){
-        if(!root) return true;
-        if(root->val != val) return false;
-        return solve(root->left,val) and solve(root->right, val);
-    }
     bool isUnivalTree(TreeNode* root) {
-        return solve(root,root->val);
+        if(!root)   return true;
+        if(root->left and root->val != root->left->val) return false;
+        if(root->right and root->val != root->right->val)   return false;
+        return isUnivalTree(root->left) and isUnivalTree(root->right);
     }
 };
