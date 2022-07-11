@@ -10,25 +10,20 @@
  * };
  */
 class Solution {
-public:
-    vector<int> rightSideView(TreeNode* root) {
-        if(!root) return {};
-        vector<int> ans;
-        if(!root) return ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty()){
-            int n = q.size();
-            vector<int> level;
-            for(int i=0;i<n;i++){
-                TreeNode* node=q.front();
-                q.pop();
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
-                level.push_back(node->val); 
-            }
-            ans.push_back(level[level.size()-1]);
+public:    
+    void solve(TreeNode* root, vector<int> &ans, int lvl){
+        if(root){
+            if(ans.size() == lvl)
+                ans.push_back(root->val);
+            
+            solve(root->right, ans, lvl + 1);
+            solve(root->left, ans, lvl + 1);
         }
+    }
+    
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        solve(root,ans,0);
         return ans;
     }
 };
