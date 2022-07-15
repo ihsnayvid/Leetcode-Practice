@@ -11,12 +11,10 @@ class Solution{
         sort(arr, arr + n);
         long long a = 0, b = 0;
         for(int i=0; i<n; i++){
-            if(i&1){
+            if(i&1)
                 a = a*10 + arr[i];
-            }
-            else{
+            else
                 b = b*10 + arr[i];
-            }
         }
         
         return a + b;
