@@ -11,20 +11,22 @@
  */
 class Solution {
 public:
-    vector<int> in;
-    void inorder(TreeNode* root){
+    
+    //function to get inorder traversal of the tree
+    void inorder(TreeNode* root, vector<int> &in){
         if(root){
-            inorder(root->left);
+            inorder(root->left, in);
             in.push_back(root->val);
-            inorder(root->right);
+            inorder(root->right, in);
         }
     }
     
+    //once we get the inorder traversal, we'll checj if it's strictly increasing or not 
     bool isValidBST(TreeNode* root) {
-        inorder(root);
-        for(int i=1; i<in.size(); i++){
-            if(in[i] <= in[i-1]) return false;
-        }
+        vector<int> in;
+        inorder(root, in);
+        for(int i=1; i<in.size(); i++)
+            if(in[i] <= in[i-1]) return false;        
         
         return true;
     }
