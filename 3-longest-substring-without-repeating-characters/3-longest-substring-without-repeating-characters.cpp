@@ -4,18 +4,16 @@ public:
         unordered_map<char,int> mp;
         int i = 0, j = 0, n = s.length(), ans = 0;
         while(j<n){
-            if(mp.find(s[j]) != mp.end()){
-                int oldidx = i, newidx = mp[s[j]];
-                ans = max(ans, j-i);
-                i = newidx + 1;
-                
-                for(int k=oldidx; k<=newidx; k++)
-                    mp.erase(s[k]);
-            }            
-            mp[s[j]] = j;
-            j++;
+            if(mp[s[j]] == 1){
+                mp[s[i]] --;
+                i++;
+            }
+            else{
+                mp[s[j]]++;
+                ans = max(ans, j-i+1);
+                j++;
+            }
         }
-        ans = max(ans, j-i);
         return ans;
     }
 };
