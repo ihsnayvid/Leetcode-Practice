@@ -6,17 +6,14 @@ public:
             mp[s[i]] = i;
         
         vector<int> ans;
+        int last = -1, mx = INT_MIN;            
+
         for(int i=0; i<s.size(); i++){
-            //cout<<s[i]<<" ";
-            int r = mp[s[i]];
-            int curr = r;
-            for(int j=i; j<curr; j++){
-                if(mp[s[j]] > curr)
-                    curr = mp[s[j]];
+            mx = max(mx, mp[s[i]]);
+            if(mx == i){
+                ans.push_back(i - last);
+                last = i;
             }
-            ans.push_back(curr - i + 1);
-            i = curr;
-            //cout<<i<<"--";
         }
         return ans;
     }
