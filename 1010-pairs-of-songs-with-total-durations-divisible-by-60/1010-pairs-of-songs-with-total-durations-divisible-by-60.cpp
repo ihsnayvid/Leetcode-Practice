@@ -5,10 +5,8 @@ public:
         unordered_map<int,int> mp;
         for(auto i: time){
             
-            int k = i % 60;            
-            int x = 60 - k;
-            if(k == 0) ans += mp[0];
-            else ans += mp[x];            
+            int k = i % 60; 
+            ans += mp[(60 - k) % 60];
             mp[k]++;
             
         }
