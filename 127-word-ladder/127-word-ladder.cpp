@@ -1,44 +1,33 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        int ans = 0;
         unordered_set<string> st(wordList.begin(), wordList.end());
-        if(st.count(endWord) == 0)  return {};
-        queue<vector<string>> q;
-        q.push({beginWord});
-        
+        if(st.count(endWord) == 0)  return 0;
+        queue<string> q;
+        q.push(beginWord);
+        int ans = 1;
         while(!q.empty()) {
-            for(int i=0; i<q.size(); i++) {
-                vector<string> curr = q.front();
+            int s = q.size();
+            for(int i=0; i<s; i++) {
+                string curr = q.front();
                 q.pop();
-                // cout<<"curr back "<<curr.back()<<endl;
-                if(curr.back() == endWord) {
-                    return curr.size();                    
-                }                                                               
-
-                string word = curr.back();
-                st.erase(word);
-
-                for(int i = 0; i < word.size(); i++) {
-                    string newWord = curr.back();
+                if(curr == endWord){
+                    
+                    return ans;
+                }
+                for(int i = 0; i < curr.size(); i++) {
+                    string newWord = curr;
 
                     for (char ch = 'a'; ch <= 'z'; ch++) {
                         newWord[i] = ch;
-                        if(st.count(newWord)) {
-                            q.push(curr);
-                            q.back().push_back(newWord);
-                        }
-                    }
+                        if(st.count(newWord))
+                            q.push(newWord), st.erase(newWord);
+                    }                    
                 }
-                // for(auto i: curr)
-                //     cout<<i<<" ";
-                // cout<<endl;
             }
-            
-            // if(!ans.empty())
-            //     break;
+            ans ++;
         }
         
-        return ans;
+        return 0;
     }
 };
