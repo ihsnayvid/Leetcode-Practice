@@ -1,36 +1,36 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        if(grid.empty()) return 0;
-        int m = grid.size(), n = grid[0].size(), total = 0, count = 0, mins = 0;
-        queue<pair<int,int>> rotten;
-        
+        int m = grid.size(), n = grid[0].size();
+        queue<pair<int,int>> q;
+        int total = 0;
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] != 0) total ++;
-                if(grid[i][j] == 2) rotten.push({i,j});
+                if(grid[i][j] == 2)
+                    q.push({i,j});
             }
         }
-        
-        int dx[] = {0,0,-1,1};
-        int dy[] = {-1,1,0,0};
-        
-        while(!rotten.empty()){
-            int k = rotten.size();
+        int count = 0, mins = 0;
+        int dx[] = {0,0,1,-1};
+        int dy[] = {1,-1,0,0};
+        while(!q.empty()){
+            int k = q.size();
             count += k;
             while(k--){
-                int x = rotten.front().first, y = rotten.front().second;
-                rotten.pop();
+                auto x = q.front().first;
+                auto y = q.front().second;
+                q.pop();
                 for(int i=0; i<4; i++){
-                    int nx = x + dx[i], ny = y + dy[i];
-                    if(nx<0 or nx>=m or ny<0 or ny>=n or grid[nx][ny] != 1) continue;
-                    grid[nx][ny] = 2;
-                    rotten.push({nx,ny});
+                    int nextx = x + dx[i], nexty = y + dy[i];
+                    if(nextx < 0 or nextx >= m or nexty < 0 or nexty >= n or grid[nextx][nexty] != 1) continue;           
+                    grid[nextx][nexty] = 2;
+                    q.push({nextx,nexty});
                 }
             }
-            if(!rotten.empty()) mins++;
+            if(!q.empty()) mins++;
         }
         if(count == total) return mins;
-        return -1;
+        else return -1;
     }
 };
