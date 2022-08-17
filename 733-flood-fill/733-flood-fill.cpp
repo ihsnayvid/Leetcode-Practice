@@ -19,7 +19,6 @@ public:
                     int nx = x + dx[i], ny = y + dy[i];
                     
                     if(nx < 0 or nx >= m or ny < 0 or ny >= n or image[nx][ny] != start) continue;
-                    image[nx][ny] = color;
                     q.push({nx,ny});                    
                 }
             }
