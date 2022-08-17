@@ -1,30 +1,32 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int i = 0, j = 0, k = 0, n = nums1.size(), m = nums2.size();
-        vector<int> temp;
+        int n1 = nums1.size(), n2 = nums2.size();
         
-        while(i<n and j<m){
-            if(nums1[i] < nums2[j])
-                temp.push_back(nums1[i++]);
+        if(n2 < n1) return findMedianSortedArrays(nums2, nums1);
+        
+        int low = 0, high = n1;
+        while(low <= high){
+            int mid1 = low + (high - low) / 2;
+            int mid2 = (n1 + n2 + 1) / 2 - mid1;
+            
+            int l1 = mid1 == 0 ? INT_MIN : nums1[mid1-1];
+            int l2 = mid2 == 0 ? INT_MIN : nums2[mid2-1];
+            
+            int r1 = mid1 == n1 ? INT_MAX : nums1[mid1];
+            int r2 = mid2 == n2 ? INT_MAX : nums2[mid2];
+            
+            if(l1 <= r2 and l2 <=r1){
+            
+                if((n1+n2) & 1)
+                    return max(l1,l2);
+                else
+                    return (max(l1,l2) + min(r1,r2)) / 2.0;                
+            }
+            else if(l1 > r2)
+                high = mid1 -1;
             else
-                temp.push_back(nums2[j++]);        
-        }
-        
-        while(i<n)
-                temp.push_back(nums1[i++]);
-        while(j<m) 
-                temp.push_back(nums2[j++]);        
-
-        
-        double median = 0, s = m+n;
-        if((m+n) & 1){
-            return (double)temp[s / 2];
-        }
-        
-        else{
-            double num1 = temp[s/2], num2 = temp[(s/2) - 1];
-            return (num1 + num2) / 2.0;
+                low = mid1 + 1;            
         }
         return 0;
     }
