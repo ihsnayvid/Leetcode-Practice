@@ -6,9 +6,6 @@ public:
         for(auto i:s) ms[i]++;
         for(auto i:t) mt[i]++; 
         
-        for(auto i=0;i<ms.size();i++)
-            if(ms[i] != mt[i]) return false; 
-        
-        return true;        
+        return ms == mt;
     }
 };
