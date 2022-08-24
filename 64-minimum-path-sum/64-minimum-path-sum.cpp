@@ -11,18 +11,9 @@ public:
                 
                 int cell1 = (i+1<m) ? dp[i+1][j] : INT_MAX;
                 int cell2 = (j+1<n) ? dp[i][j+1] : INT_MAX;
-                // cout<<grid[i][j] <<" + minValue: "<<cell1<<" "<<cell2<<endl;
                 dp[i][j] = grid[i][j] + min(cell1, cell2);
             }
         }
-        
-        // for(int i=0; i<m; i++){
-        //     for(int j=0; j<n; j++){
-        //         cout<<dp[i][j]<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        
         return dp[0][0];
     }
 };
