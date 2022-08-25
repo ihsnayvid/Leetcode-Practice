@@ -20,24 +20,12 @@ class Solution {
 public:
     Node* connect(Node* root) {
         if(!root) return NULL;
-        queue<Node*> q;
-        q.push(root);
-        // root->next = NULL;
-        while(!q.empty()){
-            int s = q.size();
-            queue<Node*> cq;
-            while(s--){
-                auto curr = q.front();
-                q.pop();
-                if(q.empty()) curr->next = NULL;
-                else{
-                    curr->next = q.front();
-                }
-                if(curr->left) cq.push(curr->left);
-                if(curr->right) cq.push(curr->right);
-            }
-            q = cq;
-        }
+        
+        if(root->left) root->left->next = root->right;        
+        if(root->right and root->next) root->right->next = root->next->left;
+        
+        connect(root->left);
+        connect(root->right);
         return root;
     }
 };
