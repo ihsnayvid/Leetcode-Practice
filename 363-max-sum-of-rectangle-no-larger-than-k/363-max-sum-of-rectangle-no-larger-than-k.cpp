@@ -11,17 +11,17 @@ public:
                 for(int x=0; x<m; x++)
                     sum[x] += matrix[x][j];
                 
-                int curr = 0, currMax = INT_MIN;
+                int curr = 0;
                 set<int> st;
                 st.insert(0);
                 
                 for(auto s: sum){
                     curr += s;
                     auto it = st.lower_bound(curr - k);
-                    if(it != st.end()) currMax = max(currMax, curr - *it);
+                    if(it != st.end()) mx = max(mx, curr - *it);
                     st.insert(curr);
                 }
-                mx = max(mx, currMax);
+                // mx = max(mx, currMax);
             }
         }
         if(mx == INT_MIN) return -1;
