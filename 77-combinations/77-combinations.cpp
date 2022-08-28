@@ -10,14 +10,9 @@ public:
         }
         
         for(int i=idx; i<n; i++){
-            if(v[i] != -1){
-                int x = v[i];
-                ds.push_back(x);
-                v[i] = -1;
-                solve(v,ds,n,i+1,k);
-                ds.pop_back();
-                v[i] = x;
-            }
+            ds.push_back(v[i]);
+            solve(v, ds, n, i+1, k);
+            ds.pop_back();
         }
     }
     
