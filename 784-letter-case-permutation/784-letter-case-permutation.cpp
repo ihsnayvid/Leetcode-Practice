@@ -17,17 +17,11 @@ public:
             else{
                 char c = s[i];
                 
-                if(islower(s[i])){
-                    ds.push_back(toupper(c));
-                    solve(s,ds,i+1,n);
-                    ds.pop_back();
-                }
-                else{
-                    ds.push_back(tolower(c));
-                    solve(s,ds,i+1,n);
-                    ds.pop_back();
-                }
-                ds.push_back(c);
+                ds.push_back(toupper(c));
+                solve(s,ds,i+1,n);
+                ds.pop_back();
+
+                ds.push_back(tolower(c));
                 solve(s,ds,i+1,n);
                 ds.pop_back();
             }        
