@@ -17,11 +17,9 @@ public:
                 s1 = s2;
                 e1 = e2;
             }
-            else{
-                if(e1 < e2){
+            else
+                if(e1 < e2)
                     e1 = e2;
-                }
-            }
         }
         ans.push_back({s1,e1});
         return ans;
