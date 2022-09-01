@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    int count=0;
-    void solve(TreeNode* root, int mx){
-        if(!root) return;
+    int count = 0;
+    int goodNodes(TreeNode* root, int mx = INT_MIN) {
+        if(!root) return 0;
         
         if(root->val >= mx){
-            count++;
+            count ++;
             mx = root->val;
         }
-        solve(root->left, mx);
-        solve(root->right, mx);        
-    }
-    int goodNodes(TreeNode* root) {
-        solve(root, root->val);
+        
+        goodNodes(root->left, mx);
+        goodNodes(root->right, mx);
+        
         return count;
     }
 };
