@@ -6,11 +6,9 @@ public:
         dp[0] = 0;
         for(int i=1; i<=amount; i++){
             for(int j=0; j<n; j++){
-                int val = i-coins[j] >= 0 ? dp[i-coins[j]] : 100001;
-                dp[i] = min(1+ val, dp[i]);
+                if(i-coins[j] >= 0) dp[i] = min(1 + dp[i-coins[j]], dp[i]);                
             }
         }
-        if(dp[amount] == 100001) return -1;
-        return dp[amount];
+        return (dp[amount] == 100001) ? -1 : dp[amount];
     }
 };
