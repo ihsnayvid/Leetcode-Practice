@@ -17,8 +17,9 @@ public:
     
     int numberOfWays(int startPos, int endPos, int k) {
         int diff = abs(endPos - startPos);
-        if( diff > k) return 0;
-        else if(diff + k & 1 ) return 0;
+        //difference is greater than k or 
+        //after moving diff steps, we have odd number of steps left
+        if(diff > k or diff + k & 1) return 0;
         
         long r = (diff + k) / 2;
         return nCr(k,r);
