@@ -15,10 +15,6 @@ public:
     
     TreeNode* pruneTree(TreeNode* root) {
         if(!root) return root;
-        if(!root->right and !root->left and root->val == 0){
-            root = NULL;
-            return root;
-        }
             
         root->left = pruneTree(root->left);
         root->right = pruneTree(root->right);
