@@ -13,8 +13,8 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
-        TreeNode* node = root;
         stack<TreeNode*> st;
+        TreeNode* node = root;
         
         while(1){
             if(node){
@@ -29,7 +29,6 @@ public:
                 node = node->right;
             }
         }
-        
-        return ans;        
+        return ans;
     }
 };
