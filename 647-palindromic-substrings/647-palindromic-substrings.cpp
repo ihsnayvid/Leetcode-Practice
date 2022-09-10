@@ -6,15 +6,14 @@ public:
         
         for(int i=0; i<n; i++) dp[i][i] = true;
         
-        for(int g=1; g<n; g++){
-            for(int i = 0, j = g; j<n; i++, j++){
-                if((g == 1 and s[i] == s[j]) or (s[i] == s[j] and dp[i+1][j-1])){
+        for(int i=n-2; i>=0; i--){
+            for(int j=i+1; j<n; j++){
+                if((j == i+1 and s[i] == s[j]) or (s[i] == s[j] and dp[i+1][j-1])){
                     dp[i][j] = true;
                     count++;
                 }
             }
-        }        
-        
+        }
         return count;
     }
 };
