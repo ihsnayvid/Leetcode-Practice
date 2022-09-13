@@ -13,7 +13,11 @@ public:
             s[st.top()] = '*';
             st.pop();
         }
-        s.erase(remove(s.begin(), s.end(), '*'), s.end());
-        return s;
+        string ans = "";
+        for(auto i: s){
+            if(i != '*') ans += i;
+        }
+        
+        return ans;
     }
 };
