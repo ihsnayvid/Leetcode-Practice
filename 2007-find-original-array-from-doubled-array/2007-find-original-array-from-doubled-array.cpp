@@ -10,13 +10,13 @@ public:
         vector<int> ans;
          
         for(auto i: changed){ 
-            if(mp[2*i] > 0){
+            if(mp[i<<1] > 0){
                 ans.push_back(i);
-                mp[2*i] --;
+                mp[i<<1] --;
             }
             else mp[i]++;            
         }
-        if(ans.size() == n/2)
+        if(ans.size() == (n>>1))
             return ans;
         return {};
     }
