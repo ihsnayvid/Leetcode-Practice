@@ -1,8 +1,10 @@
 class Solution {
 public:
     
-    
     vector<int> findOriginalArray(vector<int>& changed) {
+        int n = changed.size();
+        if(n & 1) return {};
+        
         unordered_map<int, int> mp;
         sort(changed.rbegin(), changed.rend());
         vector<int> ans;
@@ -14,10 +16,8 @@ public:
             }
             else mp[i]++;            
         }
-        
-        for(auto i: mp){
-            if(i.second != 0) return {};
-        }
-        return ans;
+        if(ans.size() == n/2)
+            return ans;
+        return {};
     }
 };
