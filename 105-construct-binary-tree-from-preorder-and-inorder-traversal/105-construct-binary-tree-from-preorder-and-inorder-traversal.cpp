@@ -11,27 +11,29 @@
  */
 class Solution {
 public:
-    int preIndex = 0;
-    int search(vector<int> inorder, int st, int en, int target){        
+    int preidx = 0;
+    
+    int search(vector<int> &in, int st, int en, int val){
         for(int i=st; i<=en; i++){
-            if(inorder[i] == target) return i;
+            if(in[i] == val) return i;
         }
         return -1;
     }
     
-    TreeNode* createTree(vector<int> &pre, vector<int>& in, int st, int en){
-        if(st > en) return NULL;
-        TreeNode* root = new TreeNode(pre[preIndex++]);
-        int inIndex = search(in,st,en, root->val);
-        
-        root->left = createTree(pre,in,st,inIndex-1);
-        root->right = createTree(pre,in,inIndex+1,en);
-        
-        return root;
+    TreeNode* create(vector<int> &pre, vector<int> &in, int st, int en){
+        if(st <= en){
+            TreeNode* root = new TreeNode(pre[preidx++]);
+            int idx = search(in,st,en,root->val);
+            
+            root->left = create(pre, in, st, idx-1);
+            root->right = create(pre, in, idx+1, en);
+            
+            return root;
+        }
+        return NULL;
     }
     
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int n = preorder.size();
-        return createTree(preorder, inorder, 0, n-1);       
+    TreeNode* buildTree(vector<int>& pre, vector<int>& in) {
+       return create(pre, in, 0, pre.size()-1); 
     }
 };
