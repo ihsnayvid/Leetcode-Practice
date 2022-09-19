@@ -4,7 +4,7 @@ public:
         unordered_map<string, vector<string>> mp;
         for(auto s: paths){
             string root = "";
-            int i=0;
+            int i = 0;
             while(s[i] != ' ')
                 root += s[i++];
             i++;
@@ -12,20 +12,16 @@ public:
                 if(s[i] == ' ') i++;
                 string file = "";
 
-                while(s[i] != '('){
+                while(s[i] != '(')
                     file += s[i++];
-                }     
-
 
                 if(s[i] == '('){
                     i++;
                     string text = "";
-                    while(s[i] != ')'){
+                    while(s[i] != ')')
                         text += s[i++];
-                    }
                     mp[text].push_back(root + "/" + file);
                 }
-                
                 i++;
             }
         }
