@@ -9,10 +9,10 @@ public:
         
         for(auto q: queries){
             int x = q[0], i = q[1];
-            if(nums[i] % 2 == 0)
+            if(!(nums[i] & 1))
                 sum -= nums[i];
             nums[i] += x;
-            if(nums[i] % 2 == 0)
+            if(!(nums[i] & 1))
                 sum += nums[i];
             ans.push_back(sum);
         }
