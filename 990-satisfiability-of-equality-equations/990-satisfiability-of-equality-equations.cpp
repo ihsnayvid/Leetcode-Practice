@@ -14,7 +14,6 @@ public:
 
     bool equationsPossible(vector<string>& arr) {
         
-        // adj.clear();
         initial.resize(256, false);
         vector<pair<char, char>> diff; // storing the pairs having different values
         
