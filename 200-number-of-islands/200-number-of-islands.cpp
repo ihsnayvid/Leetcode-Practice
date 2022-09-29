@@ -1,34 +1,32 @@
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size(), m = grid[0].size();
+        int n = grid.size(), m = grid[0].size(), ans = 0;
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
         queue<pair<int,int>> q;
-        vector<vector<int>> vis(n,vector<int>(m,0));
+        int dx[] = {0,0,1,-1};
+        int dy[] = {1,-1,0,0};
         
-        int ans = 0;
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(grid[i][j] == '1' and !vis[i][j]){
+                    vis[i][j] = true;
                     q.push({i,j});
-                    vis[i][j] = 1;
-                    ans ++;
-                    int dx[4] = {0,0,1,-1};
-                    int dy[4] = {1,-1,0,0};
+                    ans++; 
+                        
                     while(!q.empty()){
-                        for(int i=0; i<q.size(); i++){
-                            auto x = q.front().first;
-                            auto y = q.front().second;
+                        int s = q.size(); 
+                        while(s--){
+                            auto [x, y] = q.front();
                             q.pop();
                             for(int k=0; k<4; k++){
-                                int nextx = x + dx[k], nexty = y + dy[k];
-                                if(nextx < 0 or nextx >= n or nexty < 0 or nexty >= m or grid[nextx][nexty] == '0')
-                                    continue;
-                                if(grid[nextx][nexty] == '1' and !vis[nextx][nexty]){
-                                    vis[nextx][nexty] = 1;
-                                    q.push({nextx,nexty});
-                                }                                    
+                                int nx = x + dx[k], ny = y + dy[k];
+                                if(nx >=0 and nx < n and ny >= 0 and ny < m and grid[nx][ny] == '1' and !vis[nx][ny]){
+                                    vis[nx][ny] = true;
+                                    q.push({nx, ny});
+                                }
                             }
-                        }
+                        }                        
                     }
                 }
             }
