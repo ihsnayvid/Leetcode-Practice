@@ -10,7 +10,7 @@ public:
                 i++;
             }
         }
-        if(ans == INT_MAX) return 0;
-        return ans;
+        return (ans == INT_MAX) ? 0 : ans;
+        
     }
 };
