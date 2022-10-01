@@ -1,36 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-    //unordered_set<vector<int>> st;
-    void solve(vector<int> nums, vector<int> temp){
-        if(temp.size() == nums.size()){
-            //st.insert(temp);
-            ans.push_back(temp);
+    
+    void solve(int idx, int n , vector<int> nums, vector<vector<int>> &ans){
+        if(idx == n) {
+            ans.push_back(nums);
             return;
         }
-        
-       
-        for(int i = 0; i < nums.size(); i++){
-            if(nums[i] != -100){
-
-                if(i > 0 and nums[i] == nums[i-1] and nums[i-1] != -100) continue;
-                int k = nums[i];
-                nums[i] = -100;
-                temp.push_back(k);
-                
-                solve(nums,temp);
-                
-                temp.pop_back();
-                nums[i] = k;
-            }
+        for(int i=idx; i<n; i++){
+            if(i != idx and nums[i] == nums[idx]) continue;
+            swap(nums[i], nums[idx]);
+            solve(idx+1, n, nums, ans);
         }
-        return;
     }
-    
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        vector<int> temp;
-        solve(nums,temp);
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        solve(0, nums.size(), nums, ans);
         return ans;
     }
 };
