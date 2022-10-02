@@ -1,27 +1,18 @@
 class Solution {
 public:
-    int solve(string_view s, int i, int j, vector<vector<int>> &dp) {
-        if(i == s.size())   return 0;
-        if(dp[i][j] != -1)  return dp[i][j];
-        int res = INT_MIN;
-        for(int k = j; k < s.size(); k++) {
-            string_view a = s.substr(i, k-i);
-            string_view b = s.substr(k, k-i);
-            
-            if(a == b) {
-                int x = solve(s, k, k+1, dp);
-                if(x != INT_MIN)    res = max(res, x+1);
+    //lee's solution 
+    int deleteString(string s) {
+        int n = s.size();
+        vector<vector<int>> lcs(n + 1, vector<int>(n + 1, 0));
+        vector<int> dp(n, 1);
+        for (int i = n - 1; i >= 0; --i) {
+            for (int j = i + 1; j < n; ++j) {
+                if (s[i] == s[j])
+                    lcs[i][j] = lcs[i + 1][j + 1] + 1;
+                if (lcs[i][j] >= j - i)
+                    dp[i] = max(dp[i], dp[j] + 1);
             }
         }
-        
-        int ans = (res == INT_MIN) ? 1 : res;
-        return dp[i][j] = ans;
-    }
-    
-    int deleteString(string s) {
-        if(s.size() == 1)   return 1;
-        string_view sv({s.c_str(), s.size()});
-        vector<vector<int>> dp(s.size()+1, vector<int> (s.size()+1, -1));
-        return solve(sv, 0, 1, dp);
+        return dp[0];
     }
 };
