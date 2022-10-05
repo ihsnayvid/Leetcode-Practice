@@ -14,24 +14,15 @@ public:
     
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
         if(!root) return NULL;
-        if(depth == 1){
-            TreeNode * newnode = new TreeNode(val);
-            newnode ->left = root;
-            root = newnode;
-            
-        }
+        if(depth == 1) return new TreeNode(val, root, NULL);
         else if(depth-1 == 1){
-            TreeNode * leftnode = new TreeNode(val);
-            TreeNode * rightnode = new TreeNode(val);
-            leftnode->left = root->left;
-            rightnode->right = root->right;
-            
-            root->left = leftnode;
-            root->right = rightnode;
-            return root;
+            root->left = new TreeNode(val, root->left, NULL);
+            root->right = new TreeNode(val, NULL, root->right);
         }
-        root->left = addOneRow(root->left, val, depth-1);
-        root->right = addOneRow(root->right, val, depth-1);
+        else{
+            root->left = addOneRow(root->left, val, depth-1);
+            root->right = addOneRow(root->right, val, depth-1);
+        }
         return root;
     }
 };
