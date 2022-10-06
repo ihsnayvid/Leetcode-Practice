@@ -10,7 +10,7 @@ public:
         for(int i=idx; i<s.length(); i++){
             first += s[i];
             if(mp.count(first)){
-                int next = (dp[i] != -1 ? dp[i] : (dp[i] =  solve(s, i+1)));
+                bool next = (dp[i] != -1 ? dp[i] : (dp[i] =  solve(s, i+1)));
                 if(next)
                     return true;
             } 
