@@ -11,11 +11,13 @@ public:
     }
     
     string get(string key, int timestamp) {
-        if(mp.find(key) == mp.end()) return "";
+        if(mp.find(key) != mp.end()){
         
         auto it = mp[key].upper_bound(timestamp);
-        if(it == mp[key].begin()) return "";
-        return prev(it) -> second;
+        if(it != mp[key].begin()) 
+            return prev(it) -> second;
+        }
+        return "";
     }
 };
 
