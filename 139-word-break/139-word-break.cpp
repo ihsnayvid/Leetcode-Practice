@@ -4,13 +4,12 @@ public:
     vector<int> dp;
     bool solve(string s, int idx){
         if(idx == s.length()) return true;
-        if(s.length() == 0) return true;
         if(mp.count(s)) return true;
         string first = "";
         for(int i=idx; i<s.length(); i++){
             first += s[i];
             if(mp.count(first)){
-                bool next = (dp[i] != -1 ? dp[i] : (dp[i] =  solve(s, i+1)));
+                int next = (dp[i] != -1 ? dp[i] : (dp[i] =  solve(s, i+1)));
                 if(next)
                     return true;
             } 
