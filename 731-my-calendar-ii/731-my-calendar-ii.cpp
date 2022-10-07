@@ -1,22 +1,22 @@
 class MyCalendarTwo {
 public:
-    vector<pair<int, int>> vp, vp2;
+    map<int, int> mp;
     MyCalendarTwo() {
         
     }
     
     bool book(int start, int end) {
-        
-        for(auto i: vp2){
-            if(i.first < end and i.second > start) return false;
-        }
-        
-        for(auto i: vp){
-            if(i.first < end and i.second > start){
-                vp2.push_back({max(start, i.first), min(end, i.second)});
+        int count = 0;
+        mp[start]++;
+        mp[end]--;
+        for(auto i: mp){
+            count += i.second;
+            if(count == 3){
+                mp[start]--;
+                mp[end]++;
+                return false;
             }
         }
-        vp.push_back({start, end});
         return true;
     }
 };
