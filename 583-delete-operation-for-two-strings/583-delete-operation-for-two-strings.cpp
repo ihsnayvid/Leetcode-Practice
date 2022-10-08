@@ -1,19 +1,17 @@
 class Solution {
 public:
     
-    int lcs(string x, string y, int m, int n){
-        int dp[m+1][n+1];
-        for(int i=0; i<m+1; i++) dp[i][0] = 0;
-        for(int j=0; j<n+1; j++) dp[0][j] = 0;
-        
-        for(int i=1; i<m+1; i++){
-            for(int j=1; j<n+1; j++){
-                if(x[i-1] == y[j-1]) dp[i][j] = 1 + dp[i-1][j-1];
-                else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
-            }
+    int lcs(string s1, string s2, int n, int m){
+        vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
+        for(int i=n-1; i>=0; i--){
+            for(int j=m-1; j>=0; j--){
+                if(s1[i] == s2[j])
+                    dp[i][j] = 1 + dp[i+1][j+1];
+                else 
+                    dp[i][j] = max(dp[i+1][j], dp[i][j+1]);
+            }                
         }
-        
-        return dp[m][n];       
+        return dp[0][0];
     }
     
     int minDistance(string word1, string word2) {
