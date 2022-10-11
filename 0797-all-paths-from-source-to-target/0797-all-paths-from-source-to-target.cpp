@@ -12,9 +12,8 @@ public:
             return;
         }
         for(auto x: graph[i]){
-            if(!vis[x]){
+            if(!vis[x])
                 dfs(x, n, ds, vis, graph);
-            }
         }
         vis[i] = 0;
         ds.pop_back();
