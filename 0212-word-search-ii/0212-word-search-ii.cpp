@@ -26,8 +26,7 @@ public:
         return root;
     }
 
-    void dfs(vector<vector < char>> &board, int i, int j, TrieNode *p, vector< string > &result)
-    {
+    void dfs(vector<vector < char>> &board, int i, int j, TrieNode *p, vector< string > &result){
         char c = board[i][j];
         if (c == '#' or !p->children[c - 'a']) return;
         
