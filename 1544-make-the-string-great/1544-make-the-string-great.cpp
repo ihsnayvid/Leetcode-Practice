@@ -5,7 +5,7 @@ public:
         for(auto i: s){
             if(st.empty()) st.push(i);
             else{
-                if((isupper(st.top()) and tolower(st.top()) == i) or (islower(st.top()) and toupper(st.top()) == i))
+                if(st.top() == i + 32 or st.top() == i - 32)
                     st.pop();
                 else
                     st.push(i);
