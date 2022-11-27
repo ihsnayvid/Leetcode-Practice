@@ -1,17 +1,16 @@
 class Solution {
 public:
-    long nCr(int n, int r){
-        if(r==0) return 1;
-        vector<long> v(r+1,0);
-        v[0] = 1;
-        for(int i=1;i<=n;i++){
-            for(int j=r;j>0;j--)
-                v[j] = v[j] + v[j-1];
-        }
-        return v[r];
+   
+    int solve(int i, vector<int> &dp){
+        if(i <= 1) return 1;
+        if(dp[i]) return dp[i];
+        for(int j=1; j<=i; j++)
+            dp[i] += solve(j-1, dp) * solve(i-j, dp);
+        return dp[i];
     }
     
     int numTrees(int n) {
-        return nCr(2 * n, n) / (n+1);
+        vector<int> dp(20);
+        return solve(n, dp);        
     }
 };
