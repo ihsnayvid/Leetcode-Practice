@@ -47,17 +47,7 @@ public:
         return prev;
     }
     
-    // int count(Node* head){
-    //     int n = 0;
-    //     Node* t = head;
-    //     while(t){
-    //         n ++, t = t->next;
-    //     }
-    // }
-    
     void reorderList(Node* head) {
-        Node* dummy = new Node(0);
-        dummy->next = head;
         Node* slow = head, *fast = head;
         while(fast and fast->next){
             slow = slow->next;
@@ -68,10 +58,7 @@ public:
         second = reverse(second);
         
         Node* t1 = head, *t2 = second;
-        // cout<<t1->data<<" "<<t2->data<<endl;
-        Node* list = new Node(0);
-        Node* temp = list;
-        list->next = t1;
+        Node* temp = new Node(0);
         
         while(t1){
             temp->next = t1;
