@@ -1,16 +1,12 @@
 class Solution {
 public:
-    //-1 3
-    //0  1
     int solve(int idx, int n, vector<int> &nums, int sign, vector<vector<int>> &dp){
         if(idx >= n) return 0;
         if(dp[idx][sign] != -1) return dp[idx][sign];
         
         int pick = 0, notpick = 0;
-        if(nums[idx] > 0 and sign)
-            pick = 1 + solve(idx+1, n, nums, 0, dp);
-        else if(nums[idx] < 0 and !sign)
-            pick = 1 + solve(idx+1, n, nums, 1, dp);
+        if((nums[idx] > 0 and sign) or (nums[idx] < 0 and !sign))
+            pick = 1 + solve(idx+1, n, nums, !sign, dp);
         
         notpick = solve(idx+1, n, nums, sign, dp);
         return dp[idx][sign] = max(pick, notpick);
