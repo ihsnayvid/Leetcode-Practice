@@ -3,12 +3,7 @@ public:
     bool closeStrings(string word1, string word2) {
         int n = word1.length(), m = word2.length();
         if( n != m) return false;
-        string s1 = word1, s2 = word2;
-        sort(word1.begin(), word1.end());
-        sort(word2.begin(), word2.end());
-        if(word1 == word2) return true;
-        
-        map<char, int> mp1, mp2;
+        unordered_map<char, int> mp1, mp2;
         multiset<int> st1, st2;
         unordered_set<char> ch1, ch2;
         for(auto i: word1) mp1[i]++, ch1.insert(i);
