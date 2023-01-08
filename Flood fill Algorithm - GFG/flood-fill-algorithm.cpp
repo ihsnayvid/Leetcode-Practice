@@ -8,21 +8,18 @@ public:
     int dx[4] = {0, 0, -1, 1};
     int dy[4] = {1, -1, 0, 0};
     
-    void dfs(int x, int y, int n, int m, int color, int newcolor, vector<vector<int>> &vis, vector<vector<int>>& image){
-        if(x < 0 or y < 0 or x >= n or y >= m or vis[x][y] or image[x][y] != color) return;
-        vis[x][y] = 1;
+    void dfs(int x, int y, int n, int m, int color, int newcolor, vector<vector<int>>& image){
+        if(x < 0 or y < 0 or x >= n or y >= m or image[x][y] != color or image[x][y] == newcolor) return;
         image[x][y] = newcolor;
-        for(int i=0; i<4; i++){
-            dfs(x + dx[i], y + dy[i], n, m, color, newcolor, vis, image);
-        }
+        for(int i=0; i<4; i++)
+            dfs(x + dx[i], y + dy[i], n, m, color, newcolor, image);
     }
 
 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newcolor) {
         int n = image.size(), m = image[0].size();
         int color = image[sr][sc];
-        vector<vector<int>> vis(n, vector<int>(m, 0));
-        dfs(sr, sc, n, m, color, newcolor, vis, image);
+        dfs(sr, sc, n, m, color, newcolor, image);
         return image;
     }
 };
