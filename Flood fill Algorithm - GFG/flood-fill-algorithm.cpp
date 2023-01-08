@@ -22,16 +22,7 @@ public:
         int n = image.size(), m = image[0].size();
         int color = image[sr][sc];
         vector<vector<int>> vis(n, vector<int>(m, 0));
-        // vis[sr][sc] = 1;
-        // image[sr][sc] = newcolor;
-        // for(int i=sr; i<n; i++){
-        //     for(int j=sc; j<m; j++){
-        //         if(image[i][j] == color and !vis[i][j]){
-                    dfs(sr, sc, n, m, color, newcolor, vis, image);
-        //         }
-        //     }
-        // }
-        
+        dfs(sr, sc, n, m, color, newcolor, vis, image);
         return image;
     }
 };
