@@ -43,14 +43,15 @@ class Solution
 	vector<vector<int>>nearest(vector<vector<int>>grid)
 	{
 	    int n = grid.size(), m = grid[0].size();
-	    vector<vector<int>> ans(n, vector<int>(m, -1));
+	   // vector<vector<int>> ans(n, vector<int>(m, -1));
 	    queue<pair<int, int>> q;
 	    for(int i=0; i<n; i++){
 	        for(int j=0; j<m; j++){
 	            if(grid[i][j] == 1){
-	                ans[i][j] = 0; 
+	                grid[i][j] = 0; 
 	                q.push({i, j});
 	            }
+	            else grid[i][j] = -1;
 	        }
 	    }
 	    
@@ -60,13 +61,13 @@ class Solution
             int x = curr.first, y = curr.second;
             for(int i=0; i<4; i++){
                 int nx = x + dx[i], ny = y + dy[i];
-                if(nx < 0 or ny < 0 or nx >=n or ny >= m or ans[nx][ny] != -1) continue;
-                ans[nx][ny] = ans[x][y] + 1;
+                if(nx < 0 or ny < 0 or nx >=n or ny >= m or grid[nx][ny] != -1) continue;
+                grid[nx][ny] = grid[x][y] + 1;
                 q.push({nx, ny});
             }
 	    }
 	    
-	    return ans;
+	    return grid;
 	}
 };
 
