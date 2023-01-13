@@ -29,7 +29,7 @@ public:
             if(mat[i][m-1] == 'O') dfs(i, m-1, n, m, mat);
         }
         
-        for(int j=0; j<m; j++){
+        for(int j=1; j<m-1; j++){
             if(mat[0][j] == 'O') dfs(0, j, n, m, mat);
             if(mat[n-1][j] == 'O') dfs(n-1, j, n, m, mat);
         }
