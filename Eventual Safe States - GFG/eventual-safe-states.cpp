@@ -11,35 +11,33 @@ using namespace std;
 class Solution {
   public:
   
-    bool dfs(int node, vector<int> adj[], vector<int> &vis, vector<int> &pathvis, vector<int> &check){
-        vis[node] = 1;
-        pathvis[node] = 1;
-        for(auto i: adj[node]){
-            if(!vis[i]){
-                if(dfs(i, adj, vis, pathvis, check)) return true;
-            }
-            else if(pathvis[i]) return true;
-        }
-        check[node] = 1;
-        pathvis[node] = 0;
-        return false;
-    }
-  
-    
-    vector<int> eventualSafeNodes(int v, vector<int> adj[]) {
-        vector<int> vis(v, 0), pathvis(v, 0), check(v, 0);
-        vector<int> ans;
-        for(int i=0; i<v; i++){
-            if(!vis[i]){
-                dfs(i, adj, vis, pathvis, check);
+    vector<int> eventualSafeNodes(int n, vector<int> adj[]) {
+        vector<int> ans, indegree(n, 0);
+        vector<int> adj2[n];
+        queue<int> q;
+        
+        for(int i=0; i<n; i++){
+            for(auto it: adj[i]){
+                adj2[it].push_back(i);
+                indegree[i]++;
             }
         }
         
-        for(int i=0; i<v; i++){
-            if(check[i] == 1) ans.push_back(i);
+        for(int i=0; i<n; i++){
+            if(indegree[i] == 0) q.push(i);
+        }
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            
+            ans.push_back(node);
+            for(auto i: adj2[node]){
+                indegree[i]--;
+                if(indegree[i] == 0) q.push(i);
+            }
         }
         
-        // sort(ans.begin(), ans.end());
+        sort(ans.begin(), ans.end());
         return ans;
     }
 };
