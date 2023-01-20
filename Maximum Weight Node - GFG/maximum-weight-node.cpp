@@ -16,14 +16,7 @@ class Solution
               v[edge[i]] += i;
           }
       }
-      int mx = 0, ans = 0;
-      for(int i=0; i<n; i++){
-          if(v[i] >= mx){
-              mx = v[i];
-              ans = i;
-          }
-      }
-      
+      int ans = max_element(v.begin(), v.end()) - v.begin();
       return ans;
   }
 };
