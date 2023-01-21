@@ -1,41 +1,57 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 // User function Template for C++
 
 class Solution {
   public:
-    int countSetBits(int n){
-        int count = 0;
+    int minVal(int num1, int num2) {
+        int set1 = __builtin_popcount(num1);
+        int set2 = __builtin_popcount(num2);
+        
+        if(set1 == set2) return num1;
+        vector<long> a(32);
+        int k = 31;
+        int n = num1;
         while(n){
-            n &= (n-1);
-            count++;
+            a[k--] = (n&1);
+            n >>= 1;
         }
-        return count; 
-    }
-    int minVal(int a, int b) {
-        int bitsA = countSetBits(a), bitsB = countSetBits(b);
-        if(bitsA == bitsB) return a;
-        
-        int diff = abs(bitsA - bitsB), x = 1, ta = a;
-        while(diff > 0){
-            int i = (bitsA > bitsB) ? x : 0;
-            if((x & ta) == i){
-                ta ^= x;
-                diff--;
+        // for(auto i: a) cout<<i<<" ";
+        // cout<<endl;
+        int diff = abs(set1-set2);
+        if(set1 > set2){
+            for(int i=a.size()-1; i>=0; i--){
+                if(diff == 0) break;
+                if(a[i] == 1) a[i] = 0, diff --;
             }
-            x <<= 1;
+        }
+        else{
+            for(int i=a.size()-1; i>=0; i--){
+                if(diff == 0) break;
+                if(a[i] == 0){
+                    a[i] = 1; 
+                    diff --;
+                }
+            }
         }
         
-        return ta;
+        int ans = 0;
+        for(auto i: a){
+            // cout<<i<<" ";
+            ans <<= 1;
+            ans |= i;
+        }
+        return ans;
+
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main() {
     int t;
@@ -51,4 +67,5 @@ int main() {
     }
 
     return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
