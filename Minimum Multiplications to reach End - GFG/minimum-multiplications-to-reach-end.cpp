@@ -14,17 +14,18 @@ class Solution {
         int mod = 1e5;
         vector<int> dist(100000, INT_MAX);
         queue<pair<int, int>> q;
+        dist[start] = 0;
         q.push({start, 0});
         while(!q.empty()){
             auto it = q.front();
             q.pop();
             
             int curr = it.first, moves = it.second;
-            if(curr == end) return moves;
             for(auto i: arr){
                 int num = (i * curr) % mod;
                 if(moves + 1 < dist[num]){
                     dist[num] = moves + 1;
+                    if(num == end) return moves + 1;
                     q.push({num, dist[num]});
                 }
             }
