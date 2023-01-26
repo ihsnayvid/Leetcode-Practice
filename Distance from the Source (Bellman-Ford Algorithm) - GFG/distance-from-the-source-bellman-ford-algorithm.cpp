@@ -23,16 +23,11 @@ class Solution {
             }
         }
         
-        bool relax = false;
         for(auto i: edges){
             int u = i[0], v = i[1], d = i[2];
-            if(dist[u] != 1e8 and dist[u] + d < dist[v]){
-                dist[v] = d + dist[u];
-                relax = true;
-                break;
-            }
+            if(dist[u] != 1e8 and dist[u] + d < dist[v])
+                return {-1};
         }
-        if(relax) return {-1};
         
         return dist;
     }
