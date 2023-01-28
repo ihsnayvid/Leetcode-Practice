@@ -20,10 +20,10 @@ class Solution{
         if(mp.find(key) != mp.end()) return mp[key];
         
         for(int i=1; i<n; i++){
-            string pre1 = a.substr(0, i), suf1 = a.substr(i);
-            string pre2 = b.substr(0, i), suf2 = b.substr(i);
+            bool check1 = solve(a.substr(0, i), b.substr(0, i)) and solve(a.substr(i, n-i), b.substr(i, n-i));
+            bool check2 = solve(a.substr(0, i), b.substr(n-i, i)) and solve(a.substr(i, n-i), b.substr(0, n-i));
             
-            if((solve(pre1, pre2) and solve(suf1, suf2)) or (solve(pre1, b.substr(n-i, i)) and solve(suf1, b.substr(0, n-i))))
+            if(check1 or check2)
                 return mp[key] = true;
         }
         return mp[key] = false;
