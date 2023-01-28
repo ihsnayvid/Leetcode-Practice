@@ -4,7 +4,54 @@ using namespace std;
 
 // } Driver Code Ends
 
-typedef pair<int, int> pi;
+class DisjointSet{
+    vector<int> rank, size, parent;
+    public:
+
+    DisjointSet(int n){
+        rank.resize(n+1, 0);
+        size.resize(n+1, 0);
+        parent.resize(n+1);
+        for(int i=0; i<=n; i++)
+            parent[i] = i;
+    }
+
+    int findUPar(int node){
+        if(parent[node] == node) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+
+    void UnionByRank(int u, int v){
+        int pu = findUPar(u);
+        int pv = findUPar(v);
+        if(pv == pu) return;
+
+        if(rank[pu] < rank[pv])
+            parent[pu] = pv;
+        else if(rank[pv] < rank[pu])
+            parent[pv] = pu;
+        else{
+            parent[pv] = pu;
+            rank[pu]++;
+        }
+    }
+
+    void UnionBySize(int u, int v){
+        int pu = findUPar(u);
+        int pv = findUPar(v);
+        if(pv == pu) return;
+
+        if(size[pu] < size[pv]){
+            parent[pu] = pv;
+            size[pv] += size[pu];
+        }
+        else{
+            parent[pv] = pu;
+            size[pu] += size[pv];
+        }
+    }
+};
+
 class Solution
 {
 	public:
@@ -12,22 +59,26 @@ class Solution
     int spanningTree(int n, vector<vector<int>> adj[])
     {
         int sum = 0;
-        vector<int> vis(n, 0);
-        priority_queue<pi, vector<pi>, greater<pi>> pq;
-        pq.push({0, 0});
-        while(!pq.empty()){
-            int d = pq.top().first;
-            int u = pq.top().second;
-            pq.pop();
-            
-            if(vis[u]) continue;
-            vis[u] = 1;
-            sum += d;
-            for(auto i: adj[u]){
-                int v = i[0], wt = i[1];
-                if(!vis[v]) pq.push({wt, v});
+        vector<pair<int, pair<int, int>>> edges;
+        for(int i=0; i<n; i++){
+            for(auto j: adj[i])
+                edges.push_back({j[1], {i, j[0]}});
+        }
+        sort(edges.begin(), edges.end());
+        
+        DisjointSet ds(n);
+        
+        for(auto i: edges){
+            int wt = i.first;
+            int u = i.second.first;
+            int v = i.second.second;
+                
+            if(ds.findUPar(u) != ds.findUPar(v)){
+                sum += wt;
+                ds.UnionBySize(u, v);
             }
         }
+        
         return sum;
     }
 };
