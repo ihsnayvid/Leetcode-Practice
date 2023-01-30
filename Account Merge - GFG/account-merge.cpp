@@ -86,7 +86,7 @@ class Solution{
             for(auto it: ans[i]) temp.push_back(it);
             merged.push_back(temp);
         }
-        sort(merged.begin(), merged.end(), greater<vector<string>>());
+        // sort(merged.begin(), merged.end(), greater<vector<string>>());
         return merged;
     }
 };
