@@ -43,20 +43,17 @@ public:
         else return search(root->right, target);
     }
     
-    void vertical(Node* root, int idx, unordered_map<int, vector<int>> &mp){
+    void vertical(Node* root, int idx, long long &sum){
         if(!root) return;
-        mp[idx].push_back(root->data);
-        vertical(root->left, idx - 1, mp);
-        vertical(root->right, idx + 1, mp);
+        if(idx == 0) sum += root->data;
+        vertical(root->left, idx - 1, sum);
+        vertical(root->right, idx + 1, sum);
     }
     long long int verticallyDownBST(Node *root,int target){
         Node* val = search(root, target);
         if(!val) return -1;
-    
-        unordered_map<int, vector<int>> mp;
-        vertical(val, 0, mp);
         long long sum = 0;
-        for(auto i: mp[0]) sum += i;
+        vertical(val, 0, sum);
         return sum - target;
     }
 };
