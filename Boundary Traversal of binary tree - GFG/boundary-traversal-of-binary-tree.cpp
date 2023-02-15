@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 #define MAX_HEIGHT 100000
@@ -95,7 +95,7 @@ Node* buildTree(string str)
 
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 /* A binary tree Node
 struct Node
 {
@@ -105,63 +105,53 @@ struct Node
 
 class Solution {
 public:
-    bool isLeaf(Node *root){
-        return (!root->left and !root->right);
+    vector<int> ans;
+    bool isLeaf(Node* root){
+        return !root->left and !root->right;
     }
-
-    void addLeft(Node *root, vector<int> &ans){
+    void addLeft(Node* root){
         if(!root) return;
-        
-        Node * curr = root->left;
-        while(curr){
-            if(!isLeaf(curr)) ans.push_back(curr->data);
-            if(curr->left) curr = curr->left;
-            else curr = curr->right;
+        Node* temp = root;
+        while(temp){
+            if(!isLeaf(temp)) ans.push_back(temp->data);
+            if(temp->left) temp = temp->left;
+            else temp = temp->right;
         }
     }
-    
-    void addRight(Node *root, vector<int> &ans){
+    void addRight(Node* root){
         if(!root) return;
-        
-        Node * curr = root->right;
-        stack<int> s;
-        while(curr){
-            if(!isLeaf(curr)) s.push(curr->data);
-            if(curr->right) curr = curr->right;
-            else curr = curr->left;
+        Node* temp = root;
+        stack<int> st;
+        while(temp){
+            if(!isLeaf(temp)) st.push(temp->data);
+            if(temp->right) temp = temp->right;
+            else temp = temp->left;
         }
-        
-        while(!s.empty()){
-            ans.push_back(s.top());
-            s.pop();
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
         }
     }
-    
-    void addLeaf(Node* root, vector<int> &ans){
-        if(isLeaf(root)){
-            ans.push_back(root->data);
-            return;
-        } 
-        
-        if(root->left) addLeaf(root->left, ans);
-        if(root->right) addLeaf(root->right, ans);
+    void addLeaf(Node* root){
+        if(!root) return;
+        addLeaf(root->left);
+        addLeaf(root->right);
+        if(isLeaf(root)) ans.push_back(root->data);
     }
     
     vector <int> boundary(Node *root)
     {
-        vector<int> ans;
         if(!root) return ans;
-        
         if(!isLeaf(root)) ans.push_back(root->data);
-        addLeft(root, ans);
-        addLeaf(root, ans);
-        addRight(root,ans);
+        addLeft(root->left);
+        addLeaf(root);
+        addRight(root->right);
         
         return ans;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 /* Driver program to test size function*/
 
@@ -181,4 +171,5 @@ int main() {
         cout << endl;
     }
     return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
