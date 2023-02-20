@@ -20,19 +20,13 @@ public:
 */
     int countPaths(int n){
         int mod = 1e9+7;
-        vector<int> dp(n+2, 0);
-        dp[0] = 0, dp[1] = 3;
-        
-        
-        long long diff = 3, sign = 1;
-        for(int i = 2; i < n; i++){
-            dp[i] = (dp[i-1] + diff) % mod;
-            long long d = 3 * (diff + (sign * 2));
-            // cout<<diff<<"->"<<d<<endl;
-            diff = d % mod;
-            sign = -sign;
+        long long ans = 0;
+        for(int i=1; i<n; i++){
+            ans = (ans * 3) % mod;
+            if(i & 1) ans = (ans + 3) % mod;
+            else ans = (ans - 3) % mod;
         }
-        return dp[n-1] % mod;
+        return ans % mod;
     }
 };
 
