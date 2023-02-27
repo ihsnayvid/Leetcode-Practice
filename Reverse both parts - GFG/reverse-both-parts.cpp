@@ -77,24 +77,14 @@ public:
         }
         return prev;
     }
-    int count(Node* head){
-        Node* temp = head;
-        int n = 0;
-        while(temp){
-            n++;
-            temp = temp->next;
-        }
-        return n;
-    }
+    
     Node *reverse(Node *head, int k)
     {
-        int n = count(head);
-        
         Node* first = head, *dummy = head;
         Node* temp = head;
-        while(--k){
+        while(--k)
             temp = temp->next;
-        }
+        
         Node* second = temp->next;
         temp->next = NULL;
         
