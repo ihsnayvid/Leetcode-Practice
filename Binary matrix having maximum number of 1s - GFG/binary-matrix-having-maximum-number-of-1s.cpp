@@ -14,13 +14,15 @@ public:
     vector<int> findMaxRow(vector<vector<int>> mat, int n) {
         int mx = 0, row = 0;
         for(int i=0; i<n; i++){
-            int count = 0;
-            for(int j=0; j<n; j++)
-                count += mat[i][j];
+            auto idx = upper_bound(mat[i].begin(), mat[i].end(), 0);
+            if(idx == mat[i].end()) continue;
+            
+            int count = n - (idx - mat[i].begin());
             if(count > mx){
                 mx = count;
                 row = i;
             }
+            
         }
         return {row, mx};
     }
