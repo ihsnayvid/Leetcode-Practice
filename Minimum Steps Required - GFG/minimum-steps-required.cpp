@@ -21,10 +21,22 @@ int solve(string str, char ch){
 
 
 int minSteps(string str) {
+    int n = str.length();
     int cona = 0, conb = 0;
-    cona = solve(str, 'a');
-    conb = solve(str, 'b');
-    // cout<<cona<<" "<<conb<<"\n";
+    // cona = solve(str, 'a');
+    // conb = solve(str, 'b');
+    
+    for(int i=0; i<n; i++){
+        if(str[i] == 'a'){
+            cona++;
+            while(i<n and str[i+1] == 'a') i++;
+        }
+        if(str[i] == 'b'){
+            conb++;
+            while(i<n and str[i+1] == 'b') i++;
+        }
+    }
+    
     return min(cona, conb) + 1;
 }
 
