@@ -13,7 +13,7 @@ public:
 // 0 2 0  
 // 0 0 0 0 1      
     int minimumNumber(int n,vector<int> &arr){
-        if(n == 1) return 0;
+        if(n == 1) return arr[0];
         
         int ans = 0;
         for(auto &i: arr)
