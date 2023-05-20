@@ -9,28 +9,17 @@ class Solution {
     bool isStraightHand(int n, int k, vector<int> &hand) {
         if(n % k != 0) return false;
         if(k == 1) return true;
-        sort(hand.begin(), hand.end());
-        vector<int> vis(n, 0);
-        int g = 0, count = 0, currSize = 0, prev = 0;
-        for(int i = 0; i < n; i++){
-            if(vis[i]) continue;
-            vis[i] = 1;
-            currSize = 1;
-            prev = hand[i];
-            for(int j=i+1; j<n; j++){
-                if(hand[j] == prev + 1){
-                    vis[j] = 1;
-                    prev = hand[j];
-                    currSize++;
-                }
-                
-                if(currSize == k){
-                    g++;
-                    break;
-                }
+        multiset<int> st(hand.begin(), hand.end());
+        while(!st.empty()){
+            int curr = *st.begin();
+            for(int i=0; i<k; i++){
+                auto itr = st.find(curr);
+                if(itr == st.end()) return false;
+                st.erase(itr);
+                curr++;
             }
         }
-        return g == (n/k);
+        return true;
     }
 };
 
