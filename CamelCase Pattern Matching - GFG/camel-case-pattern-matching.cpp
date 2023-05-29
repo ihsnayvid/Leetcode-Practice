@@ -5,19 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool isSubsequence(string t, string s) {
-        if(t[0] != s[0]) return false;
-        if(t == "") return true;
-        int i = 0, j = 0;
-        while(i < s.size()){
-            if(s[i] == t[j])
-                j++;
-            if(j == t.size()) return true;
-            i++;
-        }
-        cout<<t<<" -> "<<s<<"\n";
-        return false;
-    }
+    
     vector<string> CamelCase(int n, vector<string> dict, string pat) {
         vector<string> ans;
         for(auto &i: dict){
