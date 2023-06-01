@@ -26,7 +26,7 @@ public:
     {
         dp.resize(n, vector<int>(n, 0));
         
-        for(int i=n-2; i > 0; i--){
+        for(int i=n-1; i > 0; i--){
             for(int j=i+1; j<n; j++){
                 int mn = 1e9;
                 for(int k=i; k<j; k++){
