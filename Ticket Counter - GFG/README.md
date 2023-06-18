@@ -1,30 +1,10 @@
 # Ticket Counter
-## Easy 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px"><strong>N</strong> people standing in the queue of a movie ticket counter. It is a weird counter, distributes tickets to first <strong>K</strong> people and then last <strong>K</strong> people and again first <strong>K</strong> people and so on. The task is to find the last person to get the ticket.<br>
-<br>
-<strong>Example:</strong> Let N = 9, K = 3, starting queue will like {1, 2, 3, 4, 5, 6, 7, 8, 9}. After the first distribution queue will look like {4, 5, 6, 7, 8, 9}. And after the second distribution queue will look like {4, 5, 6}. The last person to get the ticket will be 6. </span></p>
-
-<p><span style="font-size:18px"><strong>Input: </strong><br>
-1. The first line of the input contains a single integer<em> </em> <strong>T</strong> denoting the number of test cases. The description of&nbsp;<strong>T</strong> test cases follows.<br>
-2. The first line of each test case contains two space-separated integers<strong> N</strong><strong> </strong>and<strong> K.</strong></span></p>
-
-<p><br>
-<span style="font-size:18px"><strong>Output:</strong> For each test case, print the last problem which remains</span><br>
-<br>
-<span style="font-size:18px"><strong>Constraints:</strong><br>
-1. 1 &lt;= T &lt;= 10</span><br>
-<span style="font-size:18px">2. </span><span style="font-size:18px">1 &lt;= K&lt;= N &lt;= 10<sup>5</sup></span><br>
-<br>
-<span style="font-size:18px"><strong>Example:</strong></span></p>
-
-<pre><span style="font-size:18px"><strong>Input:</strong></span>
-<span style="font-size:18px">2</span>
-<span style="font-size:18px">9 3
-25 7</span>
-
-<strong><span style="font-size:18px">Output:</span></strong>
-<span style="font-size:18px">6</span>
-<span style="font-size:18px">15</span></pre>
- <p></p>
-            </div>
+## Easy
+<div class="problems_problem_content__Xm_eO"><p><strong>N</strong> people from 1 to N are standing in the queue at a movie ticket counter. It is a weird counter, as it distributes tickets to the <strong>first K</strong> people and then the <strong>last K</strong> people and again first K people and so on, once a person gets a ticket moves <strong>out</strong> of the queue. The task is to find the <strong>last</strong> person to get the ticket.</p>
+<p><strong>Example 1:</strong></p>
+<pre><strong>Input:</strong><br>N = 9<br>K = 3<br><strong>Output:</strong><br>6<br><strong>Explanation:</strong><br>Starting queue will like {1, 2, 3, 4, 5, 6, 7, 8, 9}. After the first distribution queue will look like {4, 5, 6, 7, 8, 9}. And after the second distribution queue will look like {4, 5, 6}. The last person to get the ticket will be 6.</pre>
+<p><strong>Example 2:</strong></p>
+<pre><strong>Input:</strong><br>N = 5<br>K = 1<br><strong>Output:</strong><br>3<br><strong>Explanation:</strong><br>Queue start as {1, 2, 3, 4, 5} -&gt; {2, 3, 4, 5} -&gt; {2, 3, 4} -&gt; {3, 4} -&gt; {3}<br>Last person to get ticket will be 3.</pre>
+<p><strong>Your Task:</strong><br>You don't need to read input or print anything. Your task is to complete the function distributeTicket() which takes N and K as inputs and returns the last person to get the ticket.</p>
+<p><strong>Expected Time Complexity:</strong> O(N)<br><strong>Expected Space Complexity: </strong>O(N)<br>Try to solve it using O(1) space complexity.</p>
+<p><strong>Constraints:</strong><br>1 &lt;= K&lt;= N &lt;= 10<sup>5</sup></p></div>
