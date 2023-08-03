@@ -8,42 +8,44 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    stack<int> st;
-    
-    void dfs(int node, vector<pair<int, int>> adj[], vector<int> &vis){
+  
+    void dfs(int node, vector<int> &vis, vector<pair<int, int>> *adj, stack<int> &st){
         vis[node] = 1;
-        for(auto i: adj[node]){
-            if(!vis[i.first])
-                dfs(i.first, adj, vis);
+        for(auto &i: adj[node]){
+            if(!vis[i.first]){
+                dfs(i.first, vis, adj, st);
+            }
         }
         st.push(node);
     }
-  
     vector<int> shortestPath(int n,int m, vector<vector<int>>& edges){
         vector<pair<int, int>> adj[n];
-        for(auto i: edges)
+        for(auto &i: edges){
             adj[i[0]].push_back({i[1], i[2]});
+        }
         
+        //topo sort
+        stack<int> st;
         vector<int> vis(n, 0);
         for(int i=0; i<n; i++){
-            if(!vis[i])
-                dfs(i, adj, vis);
+            if(!vis[i]){
+                dfs(i, vis, adj, st);
+            }
         }
-        //topo sort done 
         
         vector<int> dist(n, 1e9);
         dist[0] = 0;
-        
         while(!st.empty()){
             int node = st.top();
             st.pop();
             
-            for(auto i: adj[node]){
-                int v = i.first, wt = i.second;
-                if(dist[node] + wt < dist[v])
-                    dist[v] = dist[node] + wt;
+            for(auto &i: adj[node]){
+                if(dist[i.first] > dist[node] + i.second){
+                    dist[i.first] = dist[node] + i.second;
+                }
             }
         }
+        
         for(int i=0; i<n; i++){
             if(dist[i] == 1e9) dist[i] = -1;
         }
