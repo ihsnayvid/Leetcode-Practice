@@ -7,33 +7,26 @@ class Solution
 {
 	public:
 	
-    void dfs(int node, vector<int> &vis, vector<vector<int>>& adj, stack<int> &st){
+    stack<int> st;
+    void dfs(int node, vector<int> &vis, vector<vector<int>>& adj, int check){
         vis[node] = 1;
         for(auto &i: adj[node]){
             if(!vis[i]){
-                dfs(i, vis, adj, st);
+                dfs(i, vis, adj, check);
             }
         }
-        st.push(node);
+        if(check) st.push(node);
     }
-    void dfs2(int node, vector<int> &vis, vector<vector<int>>& adj){
-        vis[node] = 1;
-        for(auto &i: adj[node]){
-            if(!vis[i]){
-                dfs2(i, vis, adj);
-            }
-        }
-    }
+    
 	//Function to find number of strongly connected components in the graph.
     int kosaraju(int n, vector<vector<int>>& adj)
     {
         vector<int> vis(n, 0);
-        stack<int> st;
         
         //dfs and store the nodes in ascending order of finishing time
         for(int i=0; i<n; i++){
             if(!vis[i]){
-                dfs(i, vis, adj, st);
+                dfs(i, vis, adj, 1);
             }
         }
         
@@ -54,7 +47,7 @@ class Solution
             if(!vis[node]){
                 // cout<<"here"<<"\n";
                 count++;
-                dfs2(node, vis, adj2);
+                dfs(node, vis, adj2, 0);
             }
         }
         return count;
