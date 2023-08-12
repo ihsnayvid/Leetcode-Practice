@@ -3,47 +3,61 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution
 {
 	public:
+	
+    void dfs(int node, vector<int> &vis, vector<vector<int>>& adj, stack<int> &st){
+        vis[node] = 1;
+        for(auto &i: adj[node]){
+            if(!vis[i]){
+                dfs(i, vis, adj, st);
+            }
+        }
+        st.push(node);
+    }
+    void dfs2(int node, vector<int> &vis, vector<vector<int>>& adj){
+        vis[node] = 1;
+        for(auto &i: adj[node]){
+            if(!vis[i]){
+                dfs2(i, vis, adj);
+            }
+        }
+    }
 	//Function to find number of strongly connected components in the graph.
-	
-    stack<int> st;
-	
-	void dfs(int node, vector<int> &vis, vector<vector<int>>& adj, int check){
-	    vis[node] = 1;
-	    for(auto i: adj[node]){
-	        if(!vis[i]) dfs(i, vis, adj, check);
-	    }
-	    if(check) st.push(node);
-	}
-	
     int kosaraju(int n, vector<vector<int>>& adj)
     {
-        vector<int> vis(n);
-        int c = 0;
+        vector<int> vis(n, 0);
+        stack<int> st;
+        
+        //dfs and store the nodes in ascending order of finishing time
         for(int i=0; i<n; i++){
-            if(!vis[i]) dfs(i, vis, adj, 1);
+            if(!vis[i]){
+                dfs(i, vis, adj, st);
+            }
         }
         
+        //reverse the edges
         vector<vector<int>> adj2(n);
         for(int i=0; i<n; i++){
             vis[i] = 0;
-            for(auto j: adj[i]){
+            for(auto &j: adj[i])
                 adj2[j].push_back(i);
-            }
         }
+        
+        //dfs again
+        int count = 0;
         
         while(!st.empty()){
             int node = st.top();
             st.pop();
             if(!vis[node]){
-                c++;
-                dfs(node, vis, adj2, 0);
+                // cout<<"here"<<"\n";
+                count++;
+                dfs2(node, vis, adj2);
             }
         }
-        return c;
+        return count;
     }
 };
 
