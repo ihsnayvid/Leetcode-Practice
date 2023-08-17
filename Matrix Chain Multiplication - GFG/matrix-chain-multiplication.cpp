@@ -9,34 +9,23 @@ using namespace std;
 
 class Solution{
 public:
-    vector<vector<int>> dp;
-    // int solve(int i, int j, int *arr){
-    //     if(i == j) return 0;
+    int solve(int i, int j, int *arr, vector<vector<int>> &dp){
+        if(i == j) return 0;
         
-    //     if(dp[i][j] != -1) return dp[i][j];
+        if(dp[i][j] != -1) return dp[i][j];
         
-    //     int mn = 1e9;
-    //     for(int k=i; k<j; k++){
-    //         int steps = arr[i-1] * arr[k] * arr[j] + solve(i, k, arr) + solve(k+1, j, arr);
-    //         mn = min(steps, mn);
-    //     }
-    //     return dp[i][j] = mn;
-    // }
+        int ans = INT_MAX;
+        for(int k=i; k<j; k++){
+            int op = (arr[i-1] * arr[k] * arr[j]) + solve(i, k, arr, dp) + solve(k+1, j, arr, dp);
+            ans = min(ans, op);
+        }
+        
+        return dp[i][j] = ans;
+    }
     int matrixMultiplication(int n, int arr[])
     {
-        dp.resize(n, vector<int>(n, 0));
-        
-        for(int i=n-1; i > 0; i--){
-            for(int j=i+1; j<n; j++){
-                int mn = 1e9;
-                for(int k=i; k<j; k++){
-                    int steps = arr[i-1] * arr[k] * arr[j] + dp[i][k] + dp[k+1][j];
-                    mn = min(steps, mn);
-                }
-                dp[i][j] = mn;
-            }
-        }
-        return dp[1][n-1];
+        vector<vector<int>> dp(n, vector<int> (n, -1));
+        return solve(1, n-1, arr, dp);
     }
 };
 
