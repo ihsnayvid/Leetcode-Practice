@@ -105,48 +105,49 @@ struct Node
 
 class Solution {
 public:
-    vector<int> ans;
     bool isLeaf(Node* root){
         return !root->left and !root->right;
     }
-    void addLeft(Node* root){
+    
+    void addLeft(Node* root, vector<int> &ans){
         if(!root) return;
-        Node* temp = root;
-        while(temp){
-            if(!isLeaf(temp)) ans.push_back(temp->data);
-            if(temp->left) temp = temp->left;
-            else temp = temp->right;
+        Node* curr = root;
+        while(root){
+            if(!isLeaf(root)) ans.push_back(root->data);
+            if(root->left) root = root->left;
+            else root = root->right;
         }
     }
-    void addRight(Node* root){
+    void addRight(Node* root, vector<int> &ans){
         if(!root) return;
-        Node* temp = root;
+        Node* curr = root;
         stack<int> st;
-        while(temp){
-            if(!isLeaf(temp)) st.push(temp->data);
-            if(temp->right) temp = temp->right;
-            else temp = temp->left;
+        while(root){
+            if(!isLeaf(root)) st.push(root->data);
+            if(root->right) root = root->right;
+            else root = root->left;
         }
         while(!st.empty()){
             ans.push_back(st.top());
             st.pop();
         }
     }
-    void addLeaf(Node* root){
-        if(!root) return;
-        addLeaf(root->left);
-        addLeaf(root->right);
-        if(isLeaf(root)) ans.push_back(root->data);
-    }
     
+    void addLeaf(Node* root, vector<int> &ans){
+        if(!root) return;
+        
+        if(isLeaf(root)) ans.push_back(root->data);
+        addLeaf(root->left, ans);
+        addLeaf(root->right, ans);
+    }
     vector <int> boundary(Node *root)
     {
+        vector<int> ans;
         if(!root) return ans;
-        if(!isLeaf(root)) ans.push_back(root->data);
-        addLeft(root->left);
-        addLeaf(root);
-        addRight(root->right);
-        
+        ans.push_back(root->data);
+        addLeft(root->left, ans);
+        if(!isLeaf(root)) addLeaf(root, ans);
+        addRight(root->right, ans);
         return ans;
     }
 };
