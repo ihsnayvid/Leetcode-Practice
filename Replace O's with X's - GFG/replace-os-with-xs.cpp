@@ -9,38 +9,35 @@ using namespace std;
 
 class Solution{
 public:
-
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
     
-    void dfs(int x, int y, int n, int m, vector<vector<char>> &mat){
-        if(x < 0 or x >=n or y < 0 or y >= m or mat[x][y] != 'O') return;
-        mat[x][y] = '#';
-        for(int i=0; i<4; i++){
-            int nx = x + dx[i], ny = y + dy[i];
-            dfs(nx, ny, n, m, mat);
+    void dfs(int i, int j, vector<vector<char>> &mat, int n, int m){
+        if(i < 0 or j < 0 or i >= n or j >= m or mat[i][j] != 'O') return;
+        mat[i][j] = '*';
+        for(int k=0; k<4; k++){
+            int nx = i + dx[k], ny = j + dy[k];
+            dfs(nx, ny, mat, n, m);
         }
     }
-
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
         for(int i=0; i<n; i++){
-            if(mat[i][0] == 'O') dfs(i, 0, n, m, mat);
-            if(mat[i][m-1] == 'O') dfs(i, m-1, n, m, mat);
+            if(mat[i][0] == 'O') dfs(i, 0, mat, n, m);
+            if(mat[i][m-1] == 'O') dfs(i, m-1, mat, n, m);
         }
         
-        for(int j=1; j<m-1; j++){
-            if(mat[0][j] == 'O') dfs(0, j, n, m, mat);
-            if(mat[n-1][j] == 'O') dfs(n-1, j, n, m, mat);
+        for(int j=0; j<m-1; j++){
+            if(mat[0][j] == 'O') dfs(0, j, mat, n, m);
+            if(mat[n-1][j] == 'O') dfs(n-1, j, mat, n, m);
         }
         
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                if(mat[i][j] == '#') mat[i][j] = 'O';
-                else if(mat[i][j] == 'O') mat[i][j] = 'X';
+                if(mat[i][j] != '*') mat[i][j] = 'X';
+                else mat[i][j] = 'O';
             }
         }
-        
         return mat;
     }
 };
