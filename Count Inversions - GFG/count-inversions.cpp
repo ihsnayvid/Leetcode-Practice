@@ -6,52 +6,43 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
   public:
+    typedef long long ll;
   
-    long long merge(long long low, long long mid, long long high, long long v[], long long *arr){
-        long long i = low, j = mid, k = low;
-        long long count = 0;
-        while(i < mid and j <= high){
-            if(arr[j] < arr[i]){
-                count += (mid-i);
-                v[k++] = arr[j++];
+    ll merge(ll low, ll mid, ll high, ll *arr){
+        ll i = low, j = mid + 1 , count = 0;
+        vector<ll> temp;
+        while(i <= mid and j <= high){
+            if(arr[i] <= arr[j]){
+                temp.push_back(arr[i]);
+                i++;
             }
             else{
-                v[k++] = arr[i++];
+                temp.push_back(arr[j]);
+                count += (mid - i + 1);
+                j++;
             }
         }
-        
-        while(i < mid){
-            v[k++] = arr[i++];
-        }
-        
-        while(j <= high){
-            v[k++] = arr[j++];
-        }
-        for(int i=low; i<= high; i++){
-            arr[i] = v[i];
-        }
+        while(i <= mid) temp.push_back(arr[i++]);
+        while(j <= high) temp.push_back(arr[j++]);
+    
+        for(i=low; i<=high; i++) arr[i] = temp[i - low];
         return count;
     }
-    long long mergeSort(long long low, long long high, long long v[], long long *arr){
-        long long count = 0;
-        if(low < high){
-            int mid = low + (high - low) / 2;
-            count += mergeSort(low, mid, v, arr);
-            count += mergeSort(mid+1, high, v, arr);
-            
-            count += merge(low, mid+1, high, v, arr);
-        }
+    ll mergeSort(ll low, ll high, ll *arr){
+        ll count = 0;
+        if(low >= high) return count;
+        ll mid = low + (high - low) / 2;
+        count += mergeSort(low, mid, arr);
+        count += mergeSort(mid+1, high, arr);
+        count += merge(low, mid, high, arr);
         return count;
     }
-  
     // arr[]: Input Array
     // N : Size of the Array arr[]
     // Function to count inversions in the array.
     long long int inversionCount(long long arr[], long long n)
     {
-        long long i = 0, j = n-1;
-        long long v[n];
-        return mergeSort(i, j, v, arr);
+        return mergeSort(0, n-1, arr);
     }
 
 };
