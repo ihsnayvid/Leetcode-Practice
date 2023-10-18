@@ -10,33 +10,32 @@ using namespace std;
 
 class Solution {
   public:
-  
     vector<int> eventualSafeNodes(int n, vector<int> adj[]) {
-        vector<int> ans, indegree(n, 0);
         vector<int> adj2[n];
-        queue<int> q;
-        
+        vector<int> indegree(n, 0);
         for(int i=0; i<n; i++){
-            for(auto it: adj[i]){
+            for(auto &it: adj[i]){
                 adj2[it].push_back(i);
                 indegree[i]++;
             }
         }
         
+        queue<int> q;
+        vector<int> ans;
         for(int i=0; i<n; i++){
             if(indegree[i] == 0) q.push(i);
         }
+        
         while(!q.empty()){
             int node = q.front();
             q.pop();
             
             ans.push_back(node);
-            for(auto i: adj2[node]){
+            for(auto &i: adj2[node]){
                 indegree[i]--;
                 if(indegree[i] == 0) q.push(i);
             }
         }
-        
         sort(ans.begin(), ans.end());
         return ans;
     }
