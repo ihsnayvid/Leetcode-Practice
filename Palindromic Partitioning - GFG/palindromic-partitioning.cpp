@@ -11,21 +11,24 @@ class Solution{
 public:
     int dp[501];
     bool isPal(string &s){
-        for(int i=0, j = s.length()-1; i<j; i++, j--){
-            if(s[i] != s[j]) return false;
+        int st = 0, en = s.size()-1;
+        while(st < en){
+            if(s[st] != s[en]) return false;
+            st++, en--;
         }
         return true;
     }
-    int solve(int i, string &str, int n){
-        if(i == n) return 0;
+    int solve(int i, string &s){
+        if(i >= s.size()) return 0;
         
         if(dp[i] != -1) return dp[i];
-        int ans = INT_MAX;
+        
         string pre = "";
-        for(int j=i; j<n; j++){
-            pre += str[j];
+        int ans = INT_MAX;
+        for(int j=i; j<s.size(); j++){
+            pre += s[j];
             if(isPal(pre)){
-                ans = min(ans, 1 + solve(j+1, str, n));
+                ans = min(ans, 1 + solve(j+1, s));
             }
         }
         return dp[i] = ans;
@@ -33,7 +36,7 @@ public:
     int palindromicPartition(string str)
     {
         memset(dp, -1, sizeof(dp));
-        return solve(0, str, str.length())-1;
+        return solve(0, str) - 1;
     }
 };
 
